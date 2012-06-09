@@ -17,6 +17,10 @@
   [^PVector pvec]
   {:x (.x pvec), :y (.y pvec), :z (.z pvec)})
 
+(defn- pvec->vec
+  [^PVector pvec]
+  [(.x pvec) (.y pvec) (.z pvec)])
+
 (defn skeleton
   "Retrieves the skeleton for the user with the given uid. If that user's
   skeleton is being tracked, then this will return a map whose keys are joint
@@ -30,11 +34,15 @@
       (doseq [[joint joint-id] joints]
         (.getJointPositionSkeleton kinect uid joint-id (get pvecs joint)))
       ; convert the pvectors into maps
-      (into {} (for [[joint pvec] pvecs] [joint (pvec->map pvec)])))))
+      (into {} (for [[joint pvec] pvecs] [joint (pvec->vec pvec)])))))
 
 (defn- pvec->2map
   [^PVector pvec]
   {:x (.x pvec), :y (.y pvec)})
+
+(defn- pvec->2vec
+  [^PVector pvec]
+  [(.x pvec) (.y pvec)])
 
 (defn project
   "Project a skeleton joint position from the 3D coordinates into depth image
@@ -45,4 +53,4 @@
         screen-pvec (new PVector)]
     ; more mutation, this time of screen-pvec
     (.convertRealWorldToProjective kinect world-pvec screen-pvec)
-    (pvec->2map screen-pvec)))
+    (pvec->2vec screen-pvec)))
