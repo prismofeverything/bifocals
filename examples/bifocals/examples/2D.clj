@@ -11,8 +11,8 @@
   (frame-rate 30))
 
 (defn draw-line
-  [p1 p2]
-  (line (:x p1) (:y p1) (:x p2) (:y p2)))
+  [[aX aY] [bX bY]]
+  (line aX aY bX bY))
 
 (defn draw-skeleton
   [skeleton]

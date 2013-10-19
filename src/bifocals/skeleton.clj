@@ -48,7 +48,7 @@
   "Project a skeleton joint position from the 3D coordinates into depth image
   coordinates. This lets you, for example, draw the user's skeleton on top of
   the depth image."
-  [kinect {:keys [x y z]}]
+  [kinect [x y z]]
   (let [world-pvec (new PVector x y z)
         screen-pvec (new PVector)]
     ; more mutation, this time of screen-pvec
